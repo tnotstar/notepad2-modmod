@@ -297,7 +297,7 @@ int DirList_Fill(HWND hwnd,LPCWSTR lpszDir,DWORD grfFlags,LPCWSTR lpszFileSpec,
                                             pidl,
                                             NULL,
                                             &IID_IShellFolder,
-                                            &lpsf))
+                                            (void **) &lpsf))
 
       {
 
@@ -326,7 +326,7 @@ int DirList_Fill(HWND hwnd,LPCWSTR lpszDir,DWORD grfFlags,LPCWSTR lpszFileSpec,
             lpsf->lpVtbl->GetAttributesOf(
                             lpsf,
                             1,
-                            &pidlEntry,
+                            (const ITEMIDLIST **)&pidlEntry,
                             &dwAttributes);
 
             if (dwAttributes & SFGAO_FILESYSTEM)
@@ -434,7 +434,7 @@ DWORD WINAPI DirList_IconThread(LPVOID lpParam)
   CoInitialize(NULL);
 
   // Get IShellIcon
-  lpdl->lpsf->lpVtbl->QueryInterface(lpdl->lpsf,&IID_IShellIcon,&lpshi);
+  lpdl->lpsf->lpVtbl->QueryInterface(lpdl->lpsf,&IID_IShellIcon,(void **)&lpshi);
 
   while (iItem < iMaxItem && WaitForSingleObject(lpdl->hExitThread,0) != WAIT_OBJECT_0) {
 
@@ -465,7 +465,7 @@ DWORD WINAPI DirList_IconThread(LPVOID lpParam)
       // Link and Share Overlay
       lplvid->lpsf->lpVtbl->GetAttributesOf(
                               lplvid->lpsf,
-                              1,&lplvid->pidl,
+                              1,(const ITEMIDLIST **)&lplvid->pidl,
                               &dwAttributes);
 
       if (dwAttributes & SFGAO_LINK)
@@ -848,10 +848,10 @@ BOOL DirList_PropertyDlg(HWND hwnd,int iItem)
                                          lplvid->lpsf,
                                          GetParent(hwnd),  // Owner
                                          1,                // Number of objects
-                                         &lplvid->pidl,    // pidl
+                                         (const ITEMIDLIST **)&lplvid->pidl,    // pidl
                                          &IID_IContextMenu,
                                          NULL,
-                                         &lpcm))
+                                         (void **)&lpcm))
   {
 
     cmi.cbSize = sizeof(CMINVOKECOMMANDINFO);
@@ -1128,7 +1128,7 @@ int DriveBox_Fill(HWND hwnd)
                                             pidl,
                                             NULL,
                                             &IID_IShellFolder,
-                                            &lpsf))
+                                            (void **)&lpsf))
 
       {
 
@@ -1157,7 +1157,7 @@ int DriveBox_Fill(HWND hwnd)
             lpsf->lpVtbl->GetAttributesOf(
                             lpsf,
                             1,
-                            &pidlEntry,
+                            (const ITEMIDLIST **)&pidlEntry,
                             &dwAttributes);
 
             if (dwAttributes & SFGAO_FILESYSTEM)
@@ -1350,10 +1350,10 @@ BOOL DriveBox_PropertyDlg(HWND hwnd)
                                          lpdcid->lpsf,
                                          GetParent(hwnd),  // Owner
                                          1,                // Number of objects
-                                         &lpdcid->pidl,    // pidl
+                                         (const ITEMIDLIST **)&lpdcid->pidl,    // pidl
                                          &IID_IContextMenu,
                                          NULL,
-                                         &lpcm))
+                                         (void **)&lpcm))
   {
 
     cmi.cbSize = sizeof(CMINVOKECOMMANDINFO);

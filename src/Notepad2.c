@@ -566,7 +566,7 @@ void __stdcall FoldAltArrow( int key, int mode )
 //  WinMain()
 //
 //
-int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInst,LPSTR lpCmdLine,int nCmdShow)
+int WINAPI wWinMain(HINSTANCE hInstance,HINSTANCE hPrevInst,LPWSTR lpCmdLine,int nCmdShow)
 {
 
   MSG msg;
@@ -735,7 +735,7 @@ BOOL InitApplication(HINSTANCE hInstance)
 //  InitInstance()
 //
 //
-HWND InitInstance(HINSTANCE hInstance,LPSTR pszCmdLine,int nCmdShow)
+HWND InitInstance(HINSTANCE hInstance,LPWSTR pszCmdLine,int nCmdShow)
 {
 
   RECT rc = { wi.x, wi.y, wi.x+wi.cx, wi.y+wi.cy };

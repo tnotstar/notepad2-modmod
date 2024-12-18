@@ -97,7 +97,7 @@ typedef struct np2params {
 
 //==== Function Declarations ==================================================
 BOOL InitApplication(HINSTANCE);
-HWND InitInstance(HINSTANCE,LPSTR,int);
+HWND InitInstance(HINSTANCE,LPWSTR,int);
 BOOL ActivatePrevInst();
 BOOL RelaunchMultiInst();
 BOOL RelaunchElevated();
@@ -144,4 +144,4 @@ LRESULT MsgNotify(HWND,WPARAM,LPARAM);
 
 
 
-///   End of Notepad2.h   \\\
+//   End of Notepad2.h

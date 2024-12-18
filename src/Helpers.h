@@ -27,6 +27,7 @@ extern UINT16 g_uWinVer;
 #define COUNTOF(ar) (sizeof(ar)/sizeof(ar[0]))
 #define CSTRLEN(s)  (COUNTOF(s)-1)
 
+#define __inline inline __attribute__((always_inline))
 
 extern WCHAR szIniFile[MAX_PATH];
 #define IniGetString(lpSection,lpName,lpDefault,lpReturnedStr,nSize) \
@@ -38,7 +39,7 @@ extern WCHAR szIniFile[MAX_PATH];
 #define IniDeleteSection(lpSection) \
   WritePrivateProfileSection(lpSection,NULL,szIniFile)
 __inline BOOL IniSetInt(LPCWSTR lpSection,LPCWSTR lpName,int i) {
-  WCHAR tch[32]; wsprintf(tch,L"%i",i); return IniSetString(lpSection,lpName,tch);
+  WCHAR tch[32]; wsprintf(tch,TEXT("%i"),i); return IniSetString(lpSection,lpName,tch);
 }
 #define LoadIniSection(lpSection,lpBuf,cchBuf) \
   GetPrivateProfileSection(lpSection,lpBuf,cchBuf,szIniFile);
@@ -48,7 +49,7 @@ int IniSectionGetString(LPCWSTR,LPCWSTR,LPCWSTR,LPWSTR,int);
 int IniSectionGetInt(LPCWSTR,LPCWSTR,int);
 BOOL IniSectionSetString(LPWSTR,LPCWSTR,LPCWSTR);
 __inline BOOL IniSectionSetInt(LPWSTR lpCachedIniSection,LPCWSTR lpName,int i) {
-  WCHAR tch[32]; wsprintf(tch,L"%i",i); return IniSectionSetString(lpCachedIniSection,lpName,tch);
+  WCHAR tch[32]; wsprintf(tch,TEXT("%i"),i); return IniSectionSetString(lpCachedIniSection,lpName,tch);
 }
 
 
@@ -108,7 +109,7 @@ BOOL StatusSetTextID(HWND,UINT,UINT);
 int  StatusCalcPaneWidth(HWND,LPCWSTR);
 
 int Toolbar_GetButtons(HWND,int,LPWSTR,int);
-int Toolbar_SetButtons(HWND,int,LPCWSTR,void*,int);
+int Toolbar_SetButtons(HWND,int,LPCWSTR,LPCTBBUTTON,int);
 
 LRESULT SendWMSize(HWND);
 
@@ -234,4 +235,4 @@ VOID RestoreWndFromTray(HWND hWnd);
 
 
 
-///   End of Helpers.h   \\\
+//   End of Helpers.h

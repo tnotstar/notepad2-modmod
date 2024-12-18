@@ -51,6 +51,12 @@ extern "C" RECT pagesetupMargin;
 HGLOBAL hDevMode = NULL;
 HGLOBAL hDevNames = NULL;
 
+#ifdef max
+#undef max
+#endif
+
+#define max(a,b) ((a) > (b) ? (a) : (b))
+
 
 //=============================================================================
 //

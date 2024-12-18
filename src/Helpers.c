@@ -19,6 +19,7 @@
 *
 *
 ******************************************************************************/
+
 #if !defined(_WIN32_WINNT)
 #define _WIN32_WINNT 0x501
 #endif
@@ -1088,11 +1089,11 @@ BOOL PathGetLnkPath(LPCWSTR pszLnkFile,LPWSTR pszResPath,int cchResPath)
 
   if (SUCCEEDED(CoCreateInstance(&CLSID_ShellLink,NULL,
                                  CLSCTX_INPROC_SERVER,
-                                 &IID_IShellLink,&psl)))
+                                 &IID_IShellLink, (void **) &psl)))
   {
     IPersistFile *ppf;
 
-    if (SUCCEEDED(psl->lpVtbl->QueryInterface(psl,&IID_IPersistFile,&ppf)))
+    if (SUCCEEDED(psl->lpVtbl->QueryInterface(psl,&IID_IPersistFile, (void **) &ppf)))
     {
       WORD wsz[MAX_PATH];
 
@@ -1209,11 +1210,11 @@ BOOL PathCreateDeskLnk(LPCWSTR pszDocument)
 
   if (SUCCEEDED(CoCreateInstance(&CLSID_ShellLink,NULL,
                                  CLSCTX_INPROC_SERVER,
-                                 &IID_IShellLink,&psl)))
+                                 &IID_IShellLink, (void **) &psl)))
   {
     IPersistFile *ppf;
 
-    if (SUCCEEDED(psl->lpVtbl->QueryInterface(psl,&IID_IPersistFile,&ppf)))
+    if (SUCCEEDED(psl->lpVtbl->QueryInterface(psl,&IID_IPersistFile, (void **) &ppf)))
     {
       WORD wsz[MAX_PATH];
 
@@ -1267,11 +1268,11 @@ BOOL PathCreateFavLnk(LPCWSTR pszName,LPCWSTR pszTarget,LPCWSTR pszDir)
 
   if (SUCCEEDED(CoCreateInstance(&CLSID_ShellLink,NULL,
                                  CLSCTX_INPROC_SERVER,
-                                 &IID_IShellLink,&psl)))
+                                 &IID_IShellLink, (void **) &psl)))
   {
     IPersistFile *ppf;
 
-    if (SUCCEEDED(psl->lpVtbl->QueryInterface(psl,&IID_IPersistFile,&ppf)))
+    if (SUCCEEDED(psl->lpVtbl->QueryInterface(psl,&IID_IPersistFile, (void **) &ppf)))
     {
       WORD wsz[MAX_PATH];
 
@@ -2384,6 +2385,4 @@ VOID RestoreWndFromTray(HWND hWnd)
   // properly until DAR finished
 }
 
-
-
-///   End of Helpers.c   \\\
+//   End of Helpers.c

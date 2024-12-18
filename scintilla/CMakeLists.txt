@@ -1,0 +1,167 @@
+set(SCINTILLA_SOURCES
+	src/AutoComplete.cxx
+	src/CallTip.cxx
+	src/CaseConvert.cxx
+	src/CaseFolder.cxx
+	src/Catalogue.cxx
+	src/CellBuffer.cxx
+	src/CharClassify.cxx
+	src/ContractionState.cxx
+	src/Decoration.cxx
+	src/Document.cxx
+	src/EditModel.cxx
+	src/Editor.cxx
+	src/EditView.cxx
+	src/ExternalLexer.cxx
+	src/Indicator.cxx
+	src/KeyMap.cxx
+	src/LineMarker.cxx
+	src/MarginView.cxx
+	src/PerLine.cxx
+	src/PositionCache.cxx
+	src/RESearch.cxx
+	src/RunStyles.cxx
+	src/ScintillaBase.cxx
+	src/Selection.cxx
+	src/Style.cxx
+	src/UniConversion.cxx
+	src/ViewStyle.cxx
+	src/XPM.cxx
+	win32/HanjaDic.cxx
+	win32/PlatWin.cxx
+	win32/ScintillaWin.cxx
+)
+
+set(SCINTILLA_HEADERS
+	include/ILexer.h
+	include/Platform.h
+	include/SciLexer.h
+	include/Scintilla.h
+	include/Sci_Position.h
+	src/AutoComplete.h
+	src/CallTip.h
+	src/CaseConvert.h
+	src/CaseFolder.h
+	src/Catalogue.h
+	src/CellBuffer.h
+	src/CharClassify.h
+	src/ContractionState.h
+	src/Decoration.h
+	src/Document.h
+	src/EditModel.h
+	src/Editor.h
+	src/EditView.h
+	src/ExternalLexer.h
+	src/FontQuality.h
+	src/Indicator.h
+	src/KeyMap.h
+	src/LineMarker.h
+	src/MarginView.h
+	src/Partitioning.h
+	src/PerLine.h
+	src/Position.h
+	src/PositionCache.h
+	src/RESearch.h
+	src/RunStyles.h
+	src/ScintillaBase.h
+	src/Selection.h
+	src/SplitVector.h
+	src/Style.h
+	src/UnicodeFromUTF8.h
+	src/UniConversion.h
+	src/ViewStyle.h
+	src/XPM.h
+	win32/PlatWin.h
+)
+
+set(SCINTILLA_LEXLIB_SOURCES
+	lexlib/Accessor.cxx
+	lexlib/CharacterCategory.cxx
+	lexlib/CharacterSet.cxx
+	lexlib/LexerBase.cxx
+	lexlib/LexerModule.cxx
+	lexlib/LexerNoExceptions.cxx
+	lexlib/LexerSimple.cxx
+	lexlib/PropSetSimple.cxx
+	lexlib/StyleContext.cxx
+	lexlib/WordList.cxx
+)
+
+set(SCINTILLA_LEXLIB_HEADERS
+	lexlib/Accessor.h
+	lexlib/CharacterCategory.h
+	lexlib/CharacterSet.h
+	lexlib/LexAccessor.h
+	lexlib/LexerBase.h
+	lexlib/LexerModule.h
+	lexlib/LexerNoExceptions.h
+	lexlib/LexerSimple.h
+	lexlib/OptionSet.h
+	lexlib/PropSetSimple.h
+	lexlib/SparseState.h
+	lexlib/StringCopy.h
+	lexlib/StyleContext.h
+	lexlib/SubStyles.h
+	lexlib/WordList.h
+)
+
+set(SCINTILLA_LEXERS_SOURCES
+	lexers/LexAHK.cxx
+	lexers/LexAsm.cxx
+	lexers/LexAU3.cxx
+	lexers/LexAVS.cxx
+	lexers/LexBash.cxx
+	lexers/LexBatch.cxx
+	lexers/LexCmake.cxx
+	lexers/LexCoffeeScript.cxx
+	lexers/LexConf.cxx
+	lexers/LexCPP.cxx
+	lexers/LexCSS.cxx
+	lexers/LexDiff.cxx
+	lexers/LexErrorList.cxx
+	lexers/LexHTML.cxx
+	lexers/LexInno.cxx
+	lexers/LexLaTeX.cxx
+	lexers/LexLua.cxx
+	lexers/LexMake.cxx
+	lexers/LexMarkdown.cxx
+	lexers/LexNsis.cxx
+	lexers/LexNull.cxx
+	lexers/LexPascal.cxx
+	lexers/LexPerl.cxx
+	lexers/LexPowerShell.cxx
+	lexers/LexProps.cxx
+	lexers/LexPython.cxx
+	lexers/LexRuby.cxx
+	lexers/LexSQL.cxx
+	lexers/LexTCL.cxx
+	lexers/LexVB.cxx
+	lexers/LexVHDL.cxx
+	lexers/LexYAML.cxx
+)
+
+add_library(scintilla
+	${SCINTILLA_SOURCES}
+	${SCINTILLA_HEADERS}
+	${SCINTILLA_LEXLIB_SOURCES}
+	${SCINTILLA_LEXLIB_HEADERS}
+	${SCINTILLA_LEXERS_SOURCES}
+)
+
+set(SCINTILLA_DEFINITIONS
+	SCI_LEXER=1
+	STATIC_BUILD
+	USE_D2D
+	NDEBUG
+	_WIN64
+	_WINDOWS
+	_CRT_SECURE_NO_DEPRECATE
+	_SCL_SECURE_NO_WARNINGS
+)
+
+target_compile_definitions(scintilla PRIVATE ${SCINTILLA_DEFINITIONS})
+
+target_include_directories(scintilla PUBLIC include/)
+target_include_directories(scintilla PRIVATE include/ src/ lexlib/)
+
+target_link_libraries(scintilla PRIVATE uuid)
